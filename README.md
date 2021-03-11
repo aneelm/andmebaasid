@@ -7,4 +7,7 @@
     - Olemitüüp Kliendi_seisundi_liik tuleb paigutada paketti Klassifikaatorite register ning see tuleb esitada Klassifikaatorite registri olemi-suhte diagrammil. Üldistusseose modelleerimisel ärge unustage lisada seda olemitüübiga Klassifikaator seotud üldistuste hulka (generalization set).
  - Tulenevalt ärireeglitest peab iga kliendi korral saama registreerida, kas ta on nõus oma tarbijaharjumuste uurimisega või otseturundusega või mitte (kliendi atribuut on_nõus_tülitamisega : Boolean). Vaikimisi andmekaitse põhimõttest lähtuvalt tuleb vaikimisi eeldada, et klient ei ole sellega nõus
  - Tulenevalt töö spetsiifikast tuleb määrata, milliseid andmeid töö teemaks oleva põhiobjekti e põhiolemitüübi kohta veel registreeritakse ning need kontseptuaalses andmemudelis korrektselt kirjeldada. Ärge unustage kitsendusi – nende näited on töövihikus looksulgudes {}!
- - 
+ - Kui kasutate Enterprise Architecti, siis märkige olemi-suhte diagrammis, et järgnevate atribuudid on fakultatiivsed üheväärtuselised atribuudid (võimsustikuga 0..1, mitte 1 nagu on töövihikus kirjas):
+  - Isik.eesnimi
+  - Isik.perenimi
+  - Isik.elukoht
