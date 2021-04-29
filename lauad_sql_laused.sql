@@ -105,10 +105,10 @@ CREATE TABLE [Laud]
 	[laua_kood] Short NOT NULL,
 	[e_meil] Text(50) NOT NULL,
 	[isikukood] Text(50) NOT NULL,
-	[laua_seisundi_liik_kood] Short NOT NULL,
+	[laua_seisundi_liik_kood] Short NOT NULL DEFAULT 1,
 	[laua_varvus_kood] Text(50) NOT NULL,
 	[kommentaar] Text(50) NOT NULL,
-	[reg_aeg] timestamp NOT NULL,
+	[reg_aeg] timestamp NOT NULL DEFAULT Now(),
 	[suurus] Short NOT NULL
 )
 ;
@@ -117,8 +117,8 @@ CREATE TABLE [Klient]
 (
 	[e_meil] Text(254) NOT NULL,
 	[isikukood] Text(50) NOT NULL,
-	[kliendi_seisundi_liik_kood] Short NOT NULL,
-	[on_nous_tylitamisega] YesNo NOT NULL
+	[kliendi_seisundi_liik_kood] Short NOT NULL DEFAULT 1,
+	[on_nous_tylitamisega] YesNo NOT NULL DEFAULT No
 )
 ;
 
@@ -127,12 +127,12 @@ CREATE TABLE [Isik]
 	[e_meil] Text(254) NOT NULL,
 	[isikukood] Text(50) NOT NULL,
 	[isikukoodi_riik] Text(3) NOT NULL,
-	[isiku_seisundi_liik_kood] Short NOT NULL,
+	[isiku_seisundi_liik_kood] Short NOT NULL DEFAULT 1,
 	[eesnimi] Text(254),
 	[elukoht] Text(254),
 	[parool] Text(254) NOT NULL,
 	[perenimi] Text(254),
-	[reg_aeg] date NOT NULL,
+	[reg_aeg] date NOT NULL  DEFAULT Now(),
 	[synni_kp] date NOT NULL
 )
 ;
