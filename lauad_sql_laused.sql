@@ -45,7 +45,7 @@ CREATE TABLE [Tootaja]
 	[isik_id] Short NOT NULL,
 	[amet_kood] Text(50) NOT NULL,
 	[mentor_id] Short,
-	[tootaja_seisundi_liik_kood] Short NOT NULL DEFAULT 1
+	[tootaja_seisundi_liik_kood] Short NOT NULL
 )
 ;
 
@@ -60,10 +60,10 @@ CREATE TABLE [Laud]
 (
 	[laua_kood] Short NOT NULL,
 	[isik_id] Short NOT NULL,
-	[laua_seisundi_liik_kood] Short NOT NULL DEFAULT 1,
+	[laua_seisundi_liik_kood] Short NOT NULL,
 	[laua_värvus_kood] Text(50) NOT NULL,
 	[kommentaar] Text(50) NOT NULL,
-	[reg_aeg] timestamp NOT NULL DEFAULT Now(),
+	[reg_aeg] timestamp NOT NULL,
 	[suurus] Short NOT NULL
 )
 ;
@@ -71,8 +71,8 @@ CREATE TABLE [Laud]
 CREATE TABLE [Klient]
 (
 	[isik_id] Short NOT NULL,
-	[kliendi_seisundi_liik_kood] Short NOT NULL DEFAULT 1,
-	[on_nous_tylitamisega] YesNo NOT NULL DEFAULT No
+	[kliendi_seisundi_liik_kood] Short NOT NULL,
+	[on_nous_tylitamisega] YesNo NOT NULL
 )
 ;
 
@@ -80,14 +80,14 @@ CREATE TABLE [Isik]
 (
 	[isik_id] Short NOT NULL,
 	[isikukoodi_riik] Text(3) NOT NULL,
-	[isiku_seisundi_liik_kood] Short NOT NULL DEFAULT 1,
+	[isiku_seisundi_liik_kood] Short NOT NULL,
 	[e_meil] Text(254) NOT NULL,
 	[eesnimi] Text(254),
 	[elukoht] Text(254),
 	[isikukood] Text(50) NOT NULL,
 	[parool] Text(254) NOT NULL,
 	[perenimi] Text(254),
-	[reg_aeg] date NOT NULL DEFAULT Now(),
+	[reg_aeg] date NOT NULL,
 	[synni_kp] date NOT NULL
 )
 ;
@@ -193,6 +193,9 @@ ALTER TABLE [Laud] ADD CONSTRAINT [PK_Laud]
 	PRIMARY KEY ([laua_kood])
 ;
 
+CREATE INDEX [IXFK_Klient_Isik] ON [Klient] ([isik_id] ASC)
+;
+
 CREATE INDEX [IXFK_Klient_Kliendi_seisundi_liik] ON [Klient] ([kliendi_seisundi_liik_kood] ASC)
 ;
 
@@ -203,7 +206,7 @@ ALTER TABLE [Klient] ADD CONSTRAINT [PK_Klient]
 CREATE INDEX [IXFK_Isik_Isiku_seisundi_liik] ON [Isik] ([isiku_seisundi_liik_kood] ASC)
 ;
 
-CREATE INDEX [IXFK_Isikukoodi_riik] ON [Isik] ([isikukoodi_riik] ASC)
+CREATE INDEX [IXFK_Isik_Riik] ON [Isik] ([isikukoodi_riik] ASC)
 ;
 
 ALTER TABLE [Isik] ADD CONSTRAINT [PK_Isik]
@@ -291,12 +294,12 @@ ALTER TABLE [Laud] ADD CONSTRAINT [FK_Laud_Laua_seisundi_liik]
 	FOREIGN KEY ([laua_seisundi_liik_kood]) REFERENCES [Laua_seisundi_liik] ([kood]) ON UPDATE Cascade
 ;
 
-ALTER TABLE [Klient] ADD CONSTRAINT [FK_Klient_Kliendi_seisundi_liik]
-	FOREIGN KEY ([kliendi_seisundi_liik_kood]) REFERENCES [Kliendi_seisundi_liik] ([kood]) ON UPDATE Cascade
+ALTER TABLE [Klient] ADD CONSTRAINT [FK_Klient_Isik]
+	FOREIGN KEY ([isik_id]) REFERENCES [Isik] ([isik_id]) ON DELETE Cascade ON UPDATE Cascade
 ;
 
-ALTER TABLE [Klient] ADD CONSTRAINT [FK_Klient_Isik]
-	FOREIGN KEY ([isik_id]) REFERENCES  () ON UPDATE Cascade
+ALTER TABLE [Klient] ADD CONSTRAINT [FK_Klient_Kliendi_seisundi_liik]
+	FOREIGN KEY ([kliendi_seisundi_liik_kood]) REFERENCES [Kliendi_seisundi_liik] ([kood]) ON UPDATE Cascade
 ;
 
 ALTER TABLE [Isik] ADD CONSTRAINT [FK_Isik_Isiku_seisundi_liik]
@@ -304,11 +307,7 @@ ALTER TABLE [Isik] ADD CONSTRAINT [FK_Isik_Isiku_seisundi_liik]
 ;
 
 ALTER TABLE [Isik] ADD CONSTRAINT [FK_Isik_Riik]
-	FOREIGN KEY ([isikukoodi_riik]) REFERENCES  () ON UPDATE Cascade
-;
-
-ALTER TABLE [Isik] ADD CONSTRAINT [FK_Isikukoodi_riik]
-	FOREIGN KEY ([isikukoodi_riik]) REFERENCES [Riik] ([kood]) ON UPDATE Cascade
+	FOREIGN KEY ([isikukoodi_riik]) REFERENCES [Riik] ([kood]) ON DELETE Cascade ON UPDATE Cascade
 ;
 
 ALTER TABLE [Laua_kategooria] ADD CONSTRAINT [FK_Laua_kategooria_Laua_kategooria_tyyp]
