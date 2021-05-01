@@ -45,7 +45,7 @@ CREATE TABLE [Tootaja]
 	[isik_id] Short NOT NULL,
 	[amet_kood] Text(50) NOT NULL,
 	[mentor_id] Short,
-	[tootaja_seisundi_liik_kood] Short NOT NULL
+	[tootaja_seisundi_liik_kood] Short NOT NULL DEFAULT 1
 )
 ;
 
@@ -60,10 +60,10 @@ CREATE TABLE [Laud]
 (
 	[laua_kood] Short NOT NULL,
 	[isik_id] Short NOT NULL,
-	[laua_seisundi_liik_kood] Short NOT NULL,
+	[laua_seisundi_liik_kood] Short NOT NULL DEFAULT 1,
 	[laua_värvus_kood] Text(50) NOT NULL,
 	[kommentaar] Text(50) NOT NULL,
-	[reg_aeg] timestamp NOT NULL,
+	[reg_aeg] timestamp NOT NULL DEFAULT Now(),
 	[suurus] Short NOT NULL
 )
 ;
@@ -71,8 +71,8 @@ CREATE TABLE [Laud]
 CREATE TABLE [Klient]
 (
 	[isik_id] Short NOT NULL,
-	[kliendi_seisundi_liik_kood] Short NOT NULL,
-	[on_nous_tylitamisega] YesNo NOT NULL
+	[kliendi_seisundi_liik_kood] Short NOT NULL DEFAULT 1,
+	[on_nous_tylitamisega] YesNo NOT NULL DEFAULT No
 )
 ;
 
@@ -80,14 +80,14 @@ CREATE TABLE [Isik]
 (
 	[isik_id] Short NOT NULL,
 	[isikukoodi_riik] Text(3) NOT NULL,
-	[isiku_seisundi_liik_kood] Short NOT NULL,
+	[isiku_seisundi_liik_kood] Short NOT NULL DEFAULT 1,
 	[e_meil] Text(254) NOT NULL,
 	[eesnimi] Text(254),
 	[elukoht] Text(254),
 	[isikukood] Text(50) NOT NULL,
 	[parool] Text(254) NOT NULL,
 	[perenimi] Text(254),
-	[reg_aeg] date NOT NULL,
+	[reg_aeg] date NOT NULL DEFAULT Now(),
 	[synni_kp] date NOT NULL
 )
 ;
@@ -213,10 +213,10 @@ ALTER TABLE [Isik] ADD CONSTRAINT [PK_Isik]
 	PRIMARY KEY ([isik_id])
 ;
 
-ALTER TABLE [Isik] ADD CONSTRAINT [AK_Isik_e_meil] UNIQUE ()
+ALTER TABLE [Isik] ADD CONSTRAINT [AK_Isik_e_meil] UNIQUE ([e_meil])
 ;
 
-ALTER TABLE [Isik] ADD CONSTRAINT [AK_Isik_isikukood] UNIQUE ()
+ALTER TABLE [Isik] ADD CONSTRAINT [AK_Isik_isikukood] UNIQUE ([isikukood])
 ;
 
 ALTER TABLE [Amet] ADD CONSTRAINT [PK_Amet]
