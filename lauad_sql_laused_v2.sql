@@ -42,7 +42,7 @@ DROP TABLE [Tootaja_seisundi_liik]
 
 CREATE TABLE [Tootaja]
 (
-	[tootaja_id] Counter NOT NULL,
+	[tootaja_id] Long NOT NULL,
 	[amet_kood] Text(5) NOT NULL,
 	[mentor_id] Long,
 	[tootaja_seisundi_liik_kood] Short NOT NULL DEFAULT 1
@@ -59,10 +59,10 @@ CREATE TABLE [Laua_kategooria_omamine]
 CREATE TABLE [Laud]
 (
 	[laua_kood] Short NOT NULL,
-	[registreerija_isik_id] Counter NOT NULL,
+	[registreerija_isik_id] Long NOT NULL,
 	[laua_seisundi_liik_kood] Short NOT NULL DEFAULT 1,
 	[laua_värvus_kood] Text(5) NOT NULL,
-	[kommentaar] Text(50) NOT NULL,
+	[kommentaar] Memo NOT NULL,
 	[reg_aeg] timestamp NOT NULL DEFAULT Now(),
 	[suurus] Byte NOT NULL
 )
@@ -70,7 +70,7 @@ CREATE TABLE [Laud]
 
 CREATE TABLE [Klient]
 (
-	[isik_id] Counter NOT NULL,
+	[isik_id] Long NOT NULL,
 	[kliendi_seisundi_liik_kood] Short NOT NULL DEFAULT 1,
 	[on_nous_tylitamisega] YesNo NOT NULL DEFAULT No
 )
