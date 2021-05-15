@@ -44,21 +44,21 @@ CREATE TABLE [Tootaja]
 (
 	[tootaja_id] Counter NOT NULL,
 	[amet_kood] Text(5) NOT NULL,
-	[mentor_id] Counter,
+	[mentor_id] Long,
 	[tootaja_seisundi_liik_kood] Short NOT NULL DEFAULT 1
 )
 ;
 
 CREATE TABLE [Laua_kategooria_omamine]
 (
-	[laua_kood] Counter NOT NULL,
+	[laua_kood] Short NOT NULL,
 	[laua_kategooria_kood] Text(5) NOT NULL
 )
 ;
 
 CREATE TABLE [Laud]
 (
-	[laua_kood] Counter NOT NULL,
+	[laua_kood] Short NOT NULL,
 	[registreerija_isik_id] Counter NOT NULL,
 	[laua_seisundi_liik_kood] Short NOT NULL DEFAULT 1,
 	[laua_värvus_kood] Text(5) NOT NULL,
@@ -87,7 +87,7 @@ CREATE TABLE [Isik]
 	[isikukood] Text(50) NOT NULL,
 	[parool] Text(254) NOT NULL,
 	[perenimi] Text(254),
-	[reg_aeg] date NOT NULL,
+	[reg_aeg] date NOT NULL DEFAULT Now(),
 	[synni_kp] date NOT NULL
 )
 ;
@@ -286,7 +286,7 @@ ALTER TABLE [Tootaja_seisundi_liik] ADD CONSTRAINT [AK_Tootaja_seisundi_liik_nim
 ;
 
 ALTER TABLE [Tootaja] ADD CONSTRAINT [FK_Tootaja_Isik]
-	FOREIGN KEY ([tootaja_id]) REFERENCES [Isik] ([isik_id]) ON DELETE Cascade ON UPDATE Cascade
+	FOREIGN KEY ([tootaja_id]) REFERENCES [Isik] ([isik_id]) ON DELETE Cascade
 ;
 
 ALTER TABLE [Tootaja] ADD CONSTRAINT [FK_Tootaja_Amet]
@@ -310,11 +310,11 @@ ALTER TABLE [Laua_kategooria_omamine] ADD CONSTRAINT [FK_Laua_kategooria_omamine
 ;
 
 ALTER TABLE [Laud] ADD CONSTRAINT [FK_Laud_Laua_varvus]
-	FOREIGN KEY ([laua_värvus_kood]) REFERENCES [Laua_varvus] ([laua_varvus_kood]) ON DELETE Cascade ON UPDATE Cascade
+	FOREIGN KEY ([laua_värvus_kood]) REFERENCES [Laua_varvus] ([laua_varvus_kood]) ON UPDATE Cascade
 ;
 
 ALTER TABLE [Laud] ADD CONSTRAINT [FK_Laud_Tootaja]
-	FOREIGN KEY ([registreerija_isik_id]) REFERENCES [Tootaja] ([tootaja_id]) ON DELETE Cascade ON UPDATE Cascade
+	FOREIGN KEY ([registreerija_isik_id]) REFERENCES [Tootaja] ([tootaja_id]) ON DELETE Cascade
 ;
 
 ALTER TABLE [Laud] ADD CONSTRAINT [FK_Laud_Laua_seisundi_liik]
@@ -322,7 +322,7 @@ ALTER TABLE [Laud] ADD CONSTRAINT [FK_Laud_Laua_seisundi_liik]
 ;
 
 ALTER TABLE [Klient] ADD CONSTRAINT [FK_Klient_Isik]
-	FOREIGN KEY ([isik_id]) REFERENCES [Isik] ([isik_id]) ON DELETE Cascade ON UPDATE Cascade
+	FOREIGN KEY ([isik_id]) REFERENCES [Isik] ([isik_id]) ON DELETE Cascade
 ;
 
 ALTER TABLE [Klient] ADD CONSTRAINT [FK_Klient_Kliendi_seisundi_liik]
@@ -330,11 +330,11 @@ ALTER TABLE [Klient] ADD CONSTRAINT [FK_Klient_Kliendi_seisundi_liik]
 ;
 
 ALTER TABLE [Isik] ADD CONSTRAINT [FK_Isik_Isiku_seisundi_liik]
-	FOREIGN KEY ([isiku_seisundi_liik_kood]) REFERENCES [Isiku_seisundi_liik] ([isiku_seisundi_liik_kood]) ON DELETE Cascade ON UPDATE Cascade
+	FOREIGN KEY ([isiku_seisundi_liik_kood]) REFERENCES [Isiku_seisundi_liik] ([isiku_seisundi_liik_kood]) ON UPDATE Cascade
 ;
 
 ALTER TABLE [Isik] ADD CONSTRAINT [FK_Isik_Riik]
-	FOREIGN KEY ([isikukoodi_riik]) REFERENCES [Riik] ([riik_kood]) ON DELETE Cascade ON UPDATE Cascade
+	FOREIGN KEY ([isikukoodi_riik]) REFERENCES [Riik] ([riik_kood]) ON UPDATE Cascade
 ;
 
 ALTER TABLE [Laua_kategooria] ADD CONSTRAINT [FK_Laua_kategooria_Laua_kategooria_tyyp]
